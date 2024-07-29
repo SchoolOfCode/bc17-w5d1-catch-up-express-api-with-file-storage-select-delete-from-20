@@ -17,7 +17,11 @@ export async function getRecipeByID(requestId) {
 
 // CREATE A RECIPE
 export async function createRecipe(newRecipe) {
-    recipes.push(newRecipe)
+    const newRecipeObject = {
+        id: uuid(),
+        ... newRecipe
+    }
+    recipes.push(newRecipeObject)
     return newRecipe
 }
 
