@@ -33,9 +33,15 @@ app.get('/recipes', async (req, res) => {
 });
 
 // This handler function will return a specific recipe
-app.get('/recipes/123', (req, res) => {
+app.get('/recipes/123', async (req, res) => {
+  id = req.params.id;
+  console.log(id);
+  const requestedRecipe = await getRecipeByID(id);
   try {
-    res.status(200).send("test string 123")
+    res.status(200).json({
+      "success": true,
+      "payload": requestedRecipe
+    })
   } catch (e) {
     console.error(e)
     res.status(404).send("that resource does not exist 123")
