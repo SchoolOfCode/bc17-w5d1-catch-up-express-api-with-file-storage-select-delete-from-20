@@ -33,8 +33,8 @@ app.get('/recipes', async (req, res) => {
 });
 
 // This handler function will return a specific recipe
-app.get('/recipes/123', async (req, res) => {
-  id = req.params.id;
+app.get('/recipes/:id', async (req, res) => {
+  const id = req.params.id;
   console.log(id);
   const requestedRecipe = await getRecipeByID(id);
   try {
@@ -49,8 +49,9 @@ app.get('/recipes/123', async (req, res) => {
 });
 
 // This handler function will return all the recipes we have when called
-app.post('/recipes', (req, res) => {
-  const newRecipe = req.body;
+app.post('/recipes', async (req, res) => {
+  const recipeToAdd = req.body;
+  const newRecipe = await createRecipe(recipeToAdd);
   try {
     res.status(201).json({
       'success': true,
@@ -65,9 +66,10 @@ app.post('/recipes', (req, res) => {
 });
 
 // This handler function will return all the recipes we have when called
-app.patch('/recipes/:id', (req, res) => {
-  //const recipeID = req.params;
-  const updatedRecipe = req.body;
+app.patch('/recipes/:id', async (req, res) => {
+  const recipeID = req.params.id;
+  const recipeToUpdate = req.body;
+  const updatedRecipe = await updateRecipeByID(recipeID, recipeToUpdate);
   try {
     res.status(200).json({
       'success': true,
@@ -81,12 +83,13 @@ app.patch('/recipes/:id', (req, res) => {
   };
 });
 
-app.delete('/recipes/:id', (req, res) => {
-  //const recipeID = req.params;
+app.delete('/recipes/:id', async (req, res) => {
+  const recipeID = req.params.id;
+  const deletedRecipe = await deleteRecipeByID(recipeID);
   try {
     res.status(200).json({
       'success': true,
-      'payload': "deleted successfully"
+      'payload': deletedRecipe
     });
 
   } catch (e) {
