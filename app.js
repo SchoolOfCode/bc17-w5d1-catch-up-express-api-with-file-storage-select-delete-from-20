@@ -83,12 +83,13 @@ app.patch('/recipes/:id', async (req, res) => {
   };
 });
 
-app.delete('/recipes/:id', (req, res) => {
-  //const recipeID = req.params;
+app.delete('/recipes/:id', async (req, res) => {
+  const recipeID = req.params.id;
+  const deletedRecipe = await deleteRecipeByID(recipeID);
   try {
     res.status(200).json({
       'success': true,
-      'payload': "deleted successfully"
+      'payload': deletedRecipe
     });
 
   } catch (e) {
