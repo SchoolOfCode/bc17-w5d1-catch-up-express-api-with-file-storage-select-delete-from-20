@@ -28,11 +28,22 @@ export async function updateRecipeByID(requestId, updatedRecipe) {
     if (index === -1) {
         throw new Error(`No recipe with ID ${requestId} found.`);
     }
-    recipes[index] = updatedRecipe
-    return recipes
+    recipes[index] = updatedRecipe;
+    return recipes;
 }
 
 
 
 // DELETE A RECIPE BY ID
-export async function deleteRecipeByID(id) { }
+export async function deleteRecipeByID(requestId) {
+    let index = recipes.findIndex(({id }) => (id === requestId));
+    if (index === -1) {
+        throw new Error(`No recipe with ID ${requestId} found.`);
+    }
+    const deletedRecipe = recipes[index];
+    recipes.splice(index, 1);
+    console.log(deletedRecipe);
+    return deletedRecipe;
+ }
+
+ deleteRecipeByID("12345");
