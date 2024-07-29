@@ -61,3 +61,21 @@ app.post('/recipes', (req, res) => {
     });
   };
 });
+
+// This handler function will return all the recipes we have when called
+app.patch('/recipes/:id', (req, res) => {
+  //const recipeID = req.params;
+  const updatedRecipe = req.body;
+  try {
+    res.status(200).json({
+      'success': true,
+      'payload': updatedRecipe
+    });
+  } catch (e) {
+      res.status(404).json({
+        'success': false,
+        'payload': null
+      });
+    };
+  });
+  
