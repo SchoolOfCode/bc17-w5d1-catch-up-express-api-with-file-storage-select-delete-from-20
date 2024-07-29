@@ -79,3 +79,18 @@ app.patch('/recipes/:id', (req, res) => {
     };
   });
   
+  app.delete('/recipes/:id', (req, res) => {
+    //const recipeID = req.params;
+    try {
+      res.status(200).json({
+        'success': true,
+        'payload': "deleted successfully"
+      });
+
+    } catch (e) {
+      res.status(500).json({
+        'success': false,
+        'payload': null
+      });
+    };
+  });
