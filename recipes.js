@@ -23,7 +23,16 @@ export async function createRecipe(newRecipe) {
 }
 
 // UPDATE A RECIPE BY ID
-export async function updateRecipeByID(id, updatedRecipe) { }
+export async function updateRecipeByID(requestId, updatedRecipe) { 
+    let index = recipes.findIndex(({id }) => (id === requestId));
+    if (index === -1) {
+        throw new Error(`No recipe with ID ${requestId} found.`);
+    }
+    recipes[index] = updatedRecipe
+    return recipes
+}
+
+
 
 // DELETE A RECIPE BY ID
 export async function deleteRecipeByID(id) { }
