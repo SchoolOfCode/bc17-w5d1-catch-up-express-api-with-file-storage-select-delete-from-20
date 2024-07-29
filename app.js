@@ -27,3 +27,12 @@ app.get('/recipes', (req, res) => {
   console.error(e)
 }
 });
+
+app.get ('/recipes/123', (req, res) => {
+  try {
+    res.status(200).send("test string 123")
+} catch (e) {
+  console.error(e)
+  res.status(404).send("that resource does not exist 123")
+}
+});
