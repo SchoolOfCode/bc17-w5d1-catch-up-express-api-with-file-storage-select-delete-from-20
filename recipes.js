@@ -8,16 +8,19 @@ import recipes from "./recipes.json" with {type: "json"};
 export async function getRecipes() {
     return recipes;
 }
-console.log(getRecipes());
+// console.log(getRecipes());
 
 // GET A RECIPE BY ID
-export async function getRecipeByID(id) {}
+export async function getRecipeByID(requestId) {
+    const recipe = recipes.find(({ id }) => (id === requestId));
+    return recipe;
+}
 
 // CREATE A RECIPE
-export async function createRecipe(newRecipe) {}
+export async function createRecipe(newRecipe) { }
 
 // UPDATE A RECIPE BY ID
-export async function updateRecipeByID(id, updatedRecipe) {}
+export async function updateRecipeByID(id, updatedRecipe) { }
 
 // DELETE A RECIPE BY ID
-export async function deleteRecipeByID(id) {}
+export async function deleteRecipeByID(id) { }
