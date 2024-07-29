@@ -19,9 +19,13 @@ app.listen(PORT, () => {
 });
 
 // This handler function will return all the recipes we have when called
-app.get('/recipes', (req, res) => {
+app.get('/recipes', async (req, res) => {
+  const allRecipes = await getRecipes();
   try {
-    res.status(200).send("test string")
+    res.status(200).json({
+      "success": true,
+      "payload": allRecipes
+    })
   } catch (e) {
     res.status(404).send("that resource does not exist")
     console.error(e)
@@ -37,14 +41,6 @@ app.get('/recipes/123', (req, res) => {
     res.status(404).send("that resource does not exist 123")
   }
 });
-
-// {
-//   "id": "4c848d48-b81e-4d6f-b45d-7b3090f4f8ej",
-//   "title": "Avo on Toast",
-//   "ingredients": ["150g of Avo", "150g of butter", "150g of toast"],
-//   "instructions": "Don't use butter, wait 2 seconds to allow slight melting. Then follow with the toast. Swish around for 10-15 seconds to allow even coating of butter on the toast. Then add the beans, slowly.\n  \n    Season to taste.",
-//   "image": "https://natashaskitchen.com/wp-content/uploads/2019/04/Best-Burger-4-500x375.jpg"
-// }
 
 // This handler function will return all the recipes we have when called
 app.post('/recipes', (req, res) => {
@@ -72,25 +68,25 @@ app.patch('/recipes/:id', (req, res) => {
       'payload': updatedRecipe
     });
   } catch (e) {
-      res.status(404).json({
-        'success': false,
-        'payload': null
-      });
-    };
-  });
-  
-  app.delete('/recipes/:id', (req, res) => {
-    //const recipeID = req.params;
-    try {
-      res.status(200).json({
-        'success': true,
-        'payload': "deleted successfully"
-      });
+    res.status(404).json({
+      'success': false,
+      'payload': null
+    });
+  };
+});
 
-    } catch (e) {
-      res.status(500).json({
-        'success': false,
-        'payload': null
-      });
-    };
-  });
+app.delete('/recipes/:id', (req, res) => {
+  //const recipeID = req.params;
+  try {
+    res.status(200).json({
+      'success': true,
+      'payload': "deleted successfully"
+    });
+
+  } catch (e) {
+    res.status(500).json({
+      'success': false,
+      'payload': null
+    });
+  };
+});

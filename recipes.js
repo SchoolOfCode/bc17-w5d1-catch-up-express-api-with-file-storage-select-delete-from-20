@@ -8,7 +8,6 @@ import recipes from "./recipes.json" with {type: "json"};
 export async function getRecipes() {
     return recipes;
 }
-// console.log(getRecipes());
 
 // GET A RECIPE BY ID
 export async function getRecipeByID(requestId) {
@@ -17,14 +16,14 @@ export async function getRecipeByID(requestId) {
 }
 
 // CREATE A RECIPE
-export async function createRecipe(newRecipe) { 
+export async function createRecipe(newRecipe) {
     recipes.push(newRecipe)
     return newRecipe
 }
 
 // UPDATE A RECIPE BY ID
-export async function updateRecipeByID(requestId, updatedRecipe) { 
-    let index = recipes.findIndex(({id }) => (id === requestId));
+export async function updateRecipeByID(requestId, updatedRecipe) {
+    let index = recipes.findIndex(({ id }) => (id === requestId));
     if (index === -1) {
         throw new Error(`No recipe with ID ${requestId} found.`);
     }
@@ -32,11 +31,9 @@ export async function updateRecipeByID(requestId, updatedRecipe) {
     return recipes;
 }
 
-
-
 // DELETE A RECIPE BY ID
 export async function deleteRecipeByID(requestId) {
-    let index = recipes.findIndex(({id }) => (id === requestId));
+    let index = recipes.findIndex(({ id }) => (id === requestId));
     if (index === -1) {
         throw new Error(`No recipe with ID ${requestId} found.`);
     }
@@ -44,6 +41,4 @@ export async function deleteRecipeByID(requestId) {
     recipes.splice(index, 1);
     console.log(deletedRecipe);
     return deletedRecipe;
- }
-
- deleteRecipeByID("12345");
+}
