@@ -66,9 +66,10 @@ app.post('/recipes', async (req, res) => {
 });
 
 // This handler function will return all the recipes we have when called
-app.patch('/recipes/:id', (req, res) => {
-  //const recipeID = req.params;
-  const updatedRecipe = req.body;
+app.patch('/recipes/:id', async (req, res) => {
+  const recipeID = req.params.id;
+  const recipeToUpdate = req.body;
+  const updatedRecipe = await updateRecipeByID(recipeID, recipeToUpdate);
   try {
     res.status(200).json({
       'success': true,
